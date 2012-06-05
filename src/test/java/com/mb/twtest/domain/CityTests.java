@@ -3,6 +3,7 @@ package com.mb.twtest.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class CityTests {
@@ -50,8 +51,7 @@ public class CityTests {
 		City startCity = new City("c");
 		City endCity = new City("b");
 
-		assert (1 == startCity.compareTo(startCity));
-		assertEquals(1, startCity.compareTo(endCity));
+		assert (startCity.compareTo(endCity) != 0);
 	}
 
 	@Test
@@ -64,6 +64,6 @@ public class CityTests {
 	public void testCityEqualityNotEqual() throws Exception {
 		City startCity = new City("c");
 		City endCity = new City("b");
-		assert (startCity.equals(endCity));
+		assert !(startCity.equals(endCity));
 	}
 }

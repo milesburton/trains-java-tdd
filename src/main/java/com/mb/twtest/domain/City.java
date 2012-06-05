@@ -36,8 +36,8 @@ public class City implements Comparable<City> {
 	}
 
 	@Override
-	public boolean equals(Object city) {
-		return getId().equals(((City) city).getId());
+	public boolean equals(Object otherCity) {
+		return getId().equals(((City) otherCity).getId());
 	}
 
 	@Override
