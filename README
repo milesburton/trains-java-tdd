@@ -1,0 +1,25 @@
+Much of the coding style was inspired by Robert "Uncle Bob" Martin (especially his recent videos). My intention was to write code self explanatory and highly descriptive
+despite the complexity which an application such as this may otherwise present. This usually involves a larger set of methods and classes which
+are named in a way to be maintainable and ultimately reusable. Test-driven-development is also an important aspect of the Clean-Coder approach.
+It explains how an object can (and was expected) to be used. With a comprehensive set of tests it was possible to iterate over my solution to build a more efficient
+and readable solution without breaking existing functionality (or my confidence in the end result!).
+
+The application is driven through the cartographer class. It provides a simple facade to the algorithm implementations. Two of the main algorithms I chose
+were Depth First Search (DFS) which is a well known approach to traversing a graph. It's particularly useful for examining each node in an easy to understand fashion 
+(and as a result is easier to test and debug). It has been configured to allow the algorithm to greedily until two boundary conditions are met. The first check (TripBoundaryChecker) allows
+the developer to constrain how "deep" the algorithm will traverse. The second, TripMatcher, will examine a particular route and see if it matches a predefined criteria. If a trip is indeed matched
+it is added to a list of successful routes. When the algorithm completes these routes are returned to the user as defined by the cartographer facade.
+
+The second algorithm enables the user to find the shortest path between two separate cities. Dijikstra's algorithm, like BFS will greedily examine each city in the CitySet searching
+for the shortest path between the origin and current city. A* for example would be faster by using a weighted heuristic but does not guarantee the shortest route but instead 
+provides a best-effort 'guess'. Unlike the first algorithm Dijikstra will only find one best route (if exists) and does not require any additional boundaries to guide it to the solution. 
+A caveat of Dijikstra's algorithm requires the origin and destination city to be separate. To handle a scenario where you wish to find the shortest destination starting from and ending at the same 
+destination we need to skip the origin city and go to the next closest city. Once the algorithm is complete we add the missing route to the overall trip.
+
+Potential Improvements:
+* Use of a mocking framework to isolate each unit from it's associated dependencies. At the moment the test are closer to a set of integration tests.
+ -- Spoc (BDD) would have allowed reduction of duplication by adding a where clause that could be used to try multiple paths of the same unit (similar to Fitnesse)  
+* Breaking down these 'integration tests' into further more atomic units would have allowed them to be more readable (apologies my time was limited)
+* An implementation of Depth-First-Search could have given a faster result for deeper searches (routes between C and C for example)
+* Groovy would have made it easier to inject dependencies without additional boilerplate
+* Groovy closures would have made quick work of the boundary checking but potentially make it a little harder to read (a potential trade-off)
